@@ -2,8 +2,12 @@
 #define CONNECTION_H
 
 #include "config.h"
+#include <iostream>
 
-
+typedef enum
+{
+    SERVER, CLIENT, CA
+}TypeOfEntity;
 
 class Entity
 {
