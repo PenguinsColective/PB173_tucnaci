@@ -4,8 +4,7 @@
 CryptIODevice::CryptIODevice(QIODevice *underlyingDevice, QObject *parent) :
     QIODevice(parent),
     m_underlyingDevice(underlyingDevice),
-    m_blockSize(16),
-    m_byteBuffer()
+    m_blockSize(16)
 {
 }
 
