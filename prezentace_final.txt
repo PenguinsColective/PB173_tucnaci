@@ -44,5 +44,25 @@
 
 
 ----
+#Použitá Kryptografie
+
+* SSL
+* AES
+
+----
+#Použitá Kryptografie
+##Server - Client
+
+* Certifikáty generované OpenSSL
+* 2048 RSA klíče
+* vlastní CA
+
+----
+#Použitá Kryptografie
+##Client - Client
+
+* výměna klíče přes server
+* 128 AES klíč
+* předpočítané, xor se vstupem
 
 # otázky?
