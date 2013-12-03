@@ -2,6 +2,8 @@
 #include "../messageenvelop.h"
 #include "serverthread.h"
 
+#include <algorithm>
+
 
 
 namespace PenguinServer
@@ -46,6 +48,23 @@ qint16 ConnectedClient::getPort()
     qint16 retVal = port;
     mutex.unlock();
     return retVal;
+}
+
+void ConnectedClient::SetAesKey(const QString &key)
+{
+    mutex.lock();
+    this->aesKey = key;
+    mutex.unlock();
+}
+
+QString ConnectedClient::getAndDestroyKey()
+{
+    mutex.lock();
+    QString retval(aesKey);
+    std::fill(aesKey.begin(), aesKey.end(), '\0');
+    mutex.unlock();
+    return retval;
+
 }
 
 void ConnectedClient::callRequest(int reqID, ConnectedClient *cli)

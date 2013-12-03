@@ -11,7 +11,7 @@ namespace PenguinServer
 
 ServerThread::ServerThread(qintptr socketDescriptor, SharedList *list, SqlConnection *conn, QObject *parent) :
     QThread(parent), s(), socketDescriptor(socketDescriptor), list(list), database(conn),
-    pending(), available(true), isInitialized(false)
+    pending(), available(true), isInitialized(false), c(0)
 {
 
     qDebug() << socketDescriptor;
@@ -216,6 +216,7 @@ void ServerThread::initialize()
         sendError("The connection already exists M'kay");
         emit error(s->error());
     }
+    this->c = c;
     this->name = e.getName();
     list->callAllClients();
 
@@ -237,8 +238,9 @@ void ServerThread::sendConnectionDenied()
     available = true;
 }
 
-void ServerThread::ConnectionGranted()
+void ServerThread::ConnectionGranted(QString key)
 {
+    this->c->SetAesKey(key);
     list->callClient(pending, name, SEND_SUCCESS_RESPONSE_TO_COMMUNICATION);
 }
 
@@ -298,7 +300,7 @@ void ServerThread::readyRead()
         return;
     case SEND_SUCCESS_RESPONSE_TO_COMMUNICATION:
         qDebug() << "Connection Granted";
-        ConnectionGranted();
+        ConnectionGranted(e.getPassword());
         return;
 
     case SEND_LOGOUT_REQUEST:
@@ -359,6 +361,10 @@ void ServerThread::sendAClient(qint16 reason, ConnectedClient * cli)
     e.setAddr(cli->getIpAddr());
     e.setName(cli->getName());
     e.setPort(cli->getPort());
+    if(reason == SEND_SUCCESS_RESPONSE_TO_COMMUNICATION)
+    {
+        e.setPassword(cli->getAndDestroyKey());
+    }
 
 //    str << (qint16) 0;
 //    str << reason
