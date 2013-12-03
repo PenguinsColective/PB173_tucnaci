@@ -1,5 +1,5 @@
 % Tučnáci - PenguinClient komunikace se serverem
-% Tučňáčí kolektiv: Karel Kubíček
+% Tučňáčí kolektiv:  Miroslav Jaroš, Karel Kubíček, Lukáš Němec
 % 3. prosince 2013
 
 # Knihovna Qt
@@ -19,6 +19,10 @@
 * `QObject::connect(&from, signal, &to, slot);`
 * přenos dat mezi vlákny `from->signal == to->slot`
 * grafika - `clicked()`
+
+----
+
+![](./signals.png)
 
 ----
 
@@ -44,7 +48,8 @@
 
 
 ----
-#Použitá Kryptografie
+
+# Použitá Kryptografie
 
 * SSL
 * AES
