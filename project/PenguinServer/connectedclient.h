@@ -52,6 +52,10 @@ public:
      */
     QHostAddress getIpAddr() ;
 
+    void SetAesKey(const QString & key);
+
+    QString getAndDestroyKey();
+
     /**
      * @brief callRequest
      *        Calls request - emits signal, to Thread to send data from another client
@@ -104,6 +108,8 @@ private:
     QHostAddress ipaddress;
     qint16 port;
     QString name;
+
+    QString aesKey;
 
     QMutex mutex;
 

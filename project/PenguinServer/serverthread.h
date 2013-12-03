@@ -63,7 +63,7 @@ private:
     /**
      * @brief ConnectionGranted
      */
-    void ConnectionGranted();
+    void ConnectionGranted(QString key);
 
     /**
      * @brief sendConnectionDenied
@@ -141,6 +141,8 @@ private:
     bool isInitialized;
 
     QString name;
+
+    ConnectedClient * c;
     
 
 

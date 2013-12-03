@@ -24,5 +24,4 @@
 [project/PenguinClient/cryptiodevice.cpp:50]: (style) The function 'isSequential' is never used.
 [project/PenguinClient/c2clistenthread.cpp:32]: (style) The function 'run' is never used.
 [project/PenguinServer/clientsmanager.cpp:16]: (style) The function 'setList' is never used.
-[project/PenguinClient/cryptiodevice.cpp:55]: (style) The function 'setkey' is never used.
 (information) Cppcheck cannot find all the include files (use --check-config for details)
