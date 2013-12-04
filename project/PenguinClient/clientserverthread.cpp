@@ -4,7 +4,7 @@ namespace PenguinClient
 {
 
 ClientServerThread::ClientServerThread(QObject *parent)
-    : QThread(parent), quit(false) {
+    : QThread(parent), isRegistered(false), quit(false) {
 
 
     clientEncryptedSocket = new QSslSocket(this);
@@ -169,7 +169,7 @@ void ClientServerThread::readyRead() {
             }
         }
     }
-    catch(MessageException e) {
+    catch(MessageException &e) {
         qDebug() << "uncompatible message" << e.what();
     }
 }

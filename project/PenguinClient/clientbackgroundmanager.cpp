@@ -12,7 +12,8 @@ ClientBackgroundManager::ClientBackgroundManager(QWidget *parent)
     loginLabel = new QLabel(tr("&Login:"));
     passwdLabel = new QLabel(tr("&Password:"));
 
-    serverIpEdit = new QLineEdit(tr("89.103.183.36"));
+    serverIpEdit = new QLineEdit(tr("192.168.15.4"));
+
     loginEdit = new QLineEdit(tr("client"));
     passwdEdit = new QLineEdit(tr(""));
     passwdEdit->setEchoMode(QLineEdit::Password);

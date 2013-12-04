@@ -78,6 +78,7 @@ private slots:
      * @brief callClient slot for dynamicaly generated buttons, send call request to server
      * actually is not used, because dynamical buttons are not working
      * internal signal used, call outern method
+     * ACTUALLY UNUSED - substitued by call1/2
      */
     void callClient();
     /**
