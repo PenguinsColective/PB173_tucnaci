@@ -1,0 +1,74 @@
+% Qt: Crypto
+% Lukáš Němec
+% 21.10.2014
+
+
+# Qt library
+
+* Support for many things (mentioned later on)
+* Many examples or code snippets scattered over the web
+* Nice useful features as QSslKey or QSslSocket
+* AES etc. unfortunately not as accessible 
+* Use some alternative solution
+    + Qt Cryptographic Architecture 
+    + PolarSSL
+    + OpenSSL
+
+----
+
+# SSL
+
+* requires keys and certificates
+* can be generated with QT, but that is not very practical
+* use OpenSSL on Aisa or any other accessible version
+* easy to find step by step manual for generating keys and certificates
+    + Certificate authority (CA signed certificate is trusted)
+    + Server
+    + Client (Clients)
+
+----
+
+# QSslSocket
+
+* can be used for communication
+    + Server - Client
+    + Client - Client (not data)
+* inherited connectivity from QTcpSocket
+* first setup not encrypted connection (and hopefully reliable)
+* then just change to SSL, add certificates etc.
+
+----
+
+# Data - how and why?
+
+* Client - Client communication
+* possible large files (multimedia etc.)
+* TCP not suitable for high capacity transfers
+* UDP is the solution
+* unfortunately no SSL-UDP connection possible (not even in Qt :D )
+
+----
+
+# Data II.
+
+* AES encrypted stream 
+* simple AES is too slow for fast encryption
+* also ECB mode of AES is not secure enough
+* solution: precompute as much as possible
+* clients exchange key and initial vector for CBC mode of AES
+* precompute chain with given values 
+* transmitted stream is:   chain XOR original stream
+* receiver can decrypt data again with XOR operation
+* XOR is fast
+
+----
+
+# Details
+
+* CBC chains are computed in separate threads (more on threads later)
+* precompute chains in certain given length
+* when there is enough, then just sleep
+* periodically check, when necessary, start again
+* ideally two chains, one for receiving, one for sending (in case of mutual conversation)
+
+----

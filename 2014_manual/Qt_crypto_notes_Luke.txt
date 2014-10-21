@@ -1,0 +1,22 @@
+Qt crypto
+
+QSSL_Socket - uses certificates (open_ssl on aisa or whatever, should be multiplatform)
+	    - inherites from QTCP socket, code first simple TCP, and then switch to SSL 
+	    - can be used for connection client/server and  client/client (not for data, TCP is slow
+
+UDP 	    - fast connection for data, unfortunatelly no SSL_UDP_socket
+	    - use PolarSSL or another crypto library with CBC AES
+	    - precompute cipher and then just XOR with data (XOR is the most fast, but still usefull operation)
+
+	    - both clients know key and initial value (server exchange or direct TCP exchange)
+	    - both calculate chains of values in CBC mode with same initial vector
+	    - when data is produced, just XOR it with chain and send result
+	    - receiver performs same XOR and gets data in original form
+	    - use two chains one for receiving, one for sending
+
+	    - chain precomputation in separate thread
+	    - ideally hold on constant length of precomputed chain
+	    - when there is no traffic, then ensure, that there is enough length of chain, then sleep
+	    - if chain shortens, then start computing again
+
+
